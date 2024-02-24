@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,14 @@ public class ImageHashtagService
     
     @Autowired
     private ImageRepository imageRepository;
+    
+    public List<String> getImagesWithHashtag(String hashtag, Pageable pageable)
+    {
+        return imageHashtagRepository
+                .findImagesWithHashtagValue(hashtag, pageable)
+                .stream()
+                .collect(Collectors.toList());
+    }
     
     public long getCountOfImagesWithHashtag(String hashtag)
     {
